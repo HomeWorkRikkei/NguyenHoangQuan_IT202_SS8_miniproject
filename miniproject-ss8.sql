@@ -1,13 +1,6 @@
--- =========================================
--- PHẦN I - TẠO DATABASE & TABLES
--- =========================================
-
 CREATE DATABASE sales_management_system;
 USE sales_management_system;
 
--- ======================
--- TABLE CUSTOMERS
--- ======================
 CREATE TABLE customers (
     customer_id INT AUTO_INCREMENT PRIMARY KEY,
     full_name VARCHAR(100) NOT NULL,
@@ -16,17 +9,11 @@ CREATE TABLE customers (
     birth_date DATE
 );
 
--- ======================
--- TABLE CATEGORIES
--- ======================
 CREATE TABLE categories (
     category_id INT AUTO_INCREMENT PRIMARY KEY,
     category_name VARCHAR(100) NOT NULL
 );
 
--- ======================
--- TABLE PRODUCTS
--- ======================
 CREATE TABLE products (
     product_id INT AUTO_INCREMENT PRIMARY KEY,
     product_name VARCHAR(150) NOT NULL,
@@ -37,9 +24,6 @@ CREATE TABLE products (
         REFERENCES categories(category_id)
 );
 
--- ======================
--- TABLE ORDERS
--- ======================
 CREATE TABLE orders (
     order_id INT AUTO_INCREMENT PRIMARY KEY,
     customer_id INT,
@@ -49,9 +33,6 @@ CREATE TABLE orders (
         REFERENCES customers(customer_id)
 );
 
--- ======================
--- TABLE ORDER_DETAILS
--- ======================
 CREATE TABLE order_details (
     order_id INT,
     product_id INT,
@@ -67,16 +48,6 @@ CREATE TABLE order_details (
         REFERENCES products(product_id)
 );
 
-
-
-
--- =========================================
--- PHẦN II - THÊM DỮ LIỆU MẪU
--- =========================================
-
--- ======================
--- CUSTOMERS
--- ======================
 INSERT INTO customers(full_name, email, gender, birth_date)
 VALUES
 ('Nguyen Van An', 'an@gmail.com', 'Male', '2001-05-10'),
@@ -85,11 +56,6 @@ VALUES
 ('Pham Thu Trang', 'trang@gmail.com', 'Female', '2002-03-08'),
 ('Vo Minh Quan', 'quan@gmail.com', 'Male', '2003-11-30');
 
-
-
--- ======================
--- CATEGORIES
--- ======================
 INSERT INTO categories(category_name)
 VALUES
 ('Dien tu'),
@@ -98,11 +64,6 @@ VALUES
 ('Gaming'),
 ('Van phong');
 
-
-
--- ======================
--- PRODUCTS
--- ======================
 INSERT INTO products(product_name, price, category_id)
 VALUES
 ('iPhone 15', 25000000, 1),
@@ -114,11 +75,6 @@ VALUES
 ('Ban phim co', 1500000, 4),
 ('May in Canon', 3500000, 5);
 
-
-
--- ======================
--- ORDERS
--- ======================
 INSERT INTO orders(customer_id, order_date)
 VALUES
 (1, '2026-05-01'),
@@ -127,11 +83,6 @@ VALUES
 (4, '2026-05-04'),
 (5, '2026-05-05');
 
-
-
--- ======================
--- ORDER_DETAILS
--- ======================
 INSERT INTO order_details(order_id, product_id, quantity, unit_price)
 VALUES
 (1, 1, 1, 25000000),
@@ -142,14 +93,6 @@ VALUES
 (4, 4, 1, 31000000),
 (5, 7, 2, 1500000);
 
-
-
-
--- =========================================
--- PHẦN III - CẬP NHẬT DỮ LIỆU
--- =========================================
-
--- Cập nhật giá sản phẩm
 UPDATE products
 SET price = 27000000
 WHERE product_name = 'iPhone 15';
@@ -159,24 +102,12 @@ UPDATE customers
 SET email = 'new_an@gmail.com'
 WHERE customer_id = 1;
 
-
-
-
--- =========================================
--- PHẦN IV - XÓA DỮ LIỆU
--- =========================================
-
--- Xóa chi tiết đơn hàng không hợp lệ
 SET SQL_SAFE_UPDATES = 0;
 DELETE FROM order_details
 WHERE order_id = 5
 AND product_id = 7;
 SET SQL_SAFE_UPDATES = 1;
 
-
- -- =========================================
--- PHẦN V - TRUY VAN
--- =========================================
 SELECT full_name AS 'hoten',email as 'email',
 case
 	when gender = 'male' then 'nam'
